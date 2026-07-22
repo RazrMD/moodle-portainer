@@ -21,3 +21,5 @@ Forward port: 80
 SSL: Let's Encrypt
 Force SSL: enabled
 ```
+
+For full reverse proxy settings, see `docs/NGINX_PROXY_MANAGER.md`.

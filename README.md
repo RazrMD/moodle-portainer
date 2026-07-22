@@ -106,8 +106,11 @@ Backups are written to the repository-mounted `backups/` directory used by the s
 
 - `docs/INSTALL.md`
 - `docs/PORTAINER.md`
+- `docs/NGINX_PROXY_MANAGER.md`
 - `docs/ARCHITECTURE.md`
 - `docs/BACKUP.md`
 - `docs/RESTORE.md`
 - `docs/UPDATE.md`
+- `docs/MAINTENANCE.md`
 - `docs/TROUBLESHOOTING.md`
+- `docs/ROADMAP.md`
