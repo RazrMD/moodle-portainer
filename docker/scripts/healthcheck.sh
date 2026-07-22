@@ -9,4 +9,4 @@ if [ ! -f /var/www/html/config.php ]; then
   exit 1
 fi
 
-curl -fsS http://127.0.0.1/login/index.php >/dev/null
+apache2ctl -t >/dev/null

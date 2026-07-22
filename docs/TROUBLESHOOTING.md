@@ -21,6 +21,23 @@ $CFG->reverseproxy = true;
 $CFG->sslproxy = true;
 ```
 
+## Moodle container stays in starting state
+
+During the first deploy, `moodle` can stay in `starting` while the image initializes Moodle files and creates `config.php`.
+
+If it stays there for more than 5-10 minutes, open the container logs in Portainer:
+
+```text
+Containers -> moodle -> Logs
+```
+
+Common causes:
+
+- `MOODLE_ADMIN_PASSWORD` is empty and Moodle is waiting for manual web installation.
+- Nginx Proxy Manager is not forwarding to the `moodle` service on port `80`.
+- The external Docker network is not the same network used by Nginx Proxy Manager.
+- The old HTTP healthcheck is still present. Redeploy the latest repository version.
+
 ## Unattended installation did not run
 
 Check that `MOODLE_ADMIN_PASSWORD` was set before the first deploy.

@@ -15,3 +15,7 @@
 - Add GitHub Actions validation workflow.
 - Add operational troubleshooting and security notes.
 - Add maintenance, Nginx Proxy Manager, and roadmap documentation.
+
+## Unreleased
+
+- Change Moodle healthcheck to avoid direct HTTP access when reverse proxy mode is enabled.
