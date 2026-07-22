@@ -5,7 +5,7 @@ Production-oriented Moodle stack for Portainer and Nginx Proxy Manager.
 Target deployment:
 
 - Moodle from the official `moodle/moodle` source repository
-- Moodle branch `MOODLE_520_STABLE`
+- Moodle branch `MOODLE_502_STABLE`
 - PHP 8.3 with Apache
 - MariaDB 11.4
 - Redis 7

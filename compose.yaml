@@ -44,7 +44,7 @@ services:
     build:
       context: .
       args:
-        MOODLE_BRANCH: ${MOODLE_BRANCH:-MOODLE_520_STABLE}
+        MOODLE_BRANCH: ${MOODLE_BRANCH:-MOODLE_502_STABLE}
     container_name: moodle
     restart: unless-stopped
     depends_on:
@@ -84,7 +84,7 @@ services:
     build:
       context: .
       args:
-        MOODLE_BRANCH: ${MOODLE_BRANCH:-MOODLE_520_STABLE}
+        MOODLE_BRANCH: ${MOODLE_BRANCH:-MOODLE_502_STABLE}
     container_name: moodle-cron
     restart: unless-stopped
     depends_on:

@@ -25,4 +25,4 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build Moodle image
-        run: docker build --build-arg MOODLE_BRANCH=MOODLE_520_STABLE -t moodle-portainer:test .
+        run: docker build --build-arg MOODLE_BRANCH=MOODLE_502_STABLE -t moodle-portainer:test .
