@@ -1,0 +1,10 @@
+.git
+.github
+backups
+docs
+README.md
+CHANGELOG.md
+.env
+*.log
+*.sql
+*.sql.gz

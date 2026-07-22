@@ -1,0 +1,37 @@
+<?php
+unset($CFG);
+global $CFG;
+$CFG = new stdClass();
+
+$CFG->dbtype = 'mariadb';
+$CFG->dblibrary = 'native';
+$CFG->dbhost = '${MOODLE_DB_HOST}';
+$CFG->dbname = '${MOODLE_DB_NAME}';
+$CFG->dbuser = '${MOODLE_DB_USER}';
+$CFG->dbpass = '${MOODLE_DB_PASSWORD}';
+$CFG->prefix = 'mdl_';
+$CFG->dboptions = [
+    'dbpersist' => false,
+    'dbport' => '',
+    'dbsocket' => '',
+    'dbcollation' => 'utf8mb4_unicode_ci',
+];
+
+$CFG->wwwroot = '${MOODLE_WWWROOT}';
+$CFG->dataroot = '${MOODLE_DATAROOT}';
+$CFG->admin = 'admin';
+$CFG->directorypermissions = 02777;
+
+$CFG->reverseproxy = true;
+$CFG->sslproxy = true;
+
+$CFG->session_handler_class = '\core\session\redis';
+$CFG->session_redis_host = '${MOODLE_REDIS_HOST}';
+$CFG->session_redis_port = 6379;
+$CFG->session_redis_database = 0;
+
+$CFG->localcachedir = '${MOODLE_DATAROOT}/localcache';
+$CFG->tempdir = '${MOODLE_DATAROOT}/temp';
+$CFG->cachedir = '${MOODLE_DATAROOT}/cache';
+
+require_once(__DIR__ . '/lib/setup.php');

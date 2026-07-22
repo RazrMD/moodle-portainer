@@ -1,32 +1,79 @@
 # Moodle Portainer
 
-Production-ready Moodle deployment for Portainer.
+Production-oriented Moodle stack for Portainer and Nginx Proxy Manager.
 
-## Stack
-- Moodle 5.2
-- MariaDB 11
-- Redis
-- Cron worker
+Target deployment:
 
-## Files
-- `compose.yaml`
-- `Dockerfile`
-- `php.ini`
-- `.env.example`
-- `.gitignore`
-- `README.md`
+- Moodle from the official `moodle/moodle` source repository
+- Moodle branch `MOODLE_520_STABLE`
+- PHP 8.3 with Apache
+- MariaDB 11.4
+- Redis 7
+- Docker volumes for persistent data
+- `moodle.curca.eu` behind Nginx Proxy Manager
+- Upload limit: 2 GB
+- Server profile: 4 GB RAM
 
-## Deployment
-1. In Portainer, go to **Stacks**.
-2. Choose **Add stack**.
-3. Select **Repository**.
-4. Use this repository URL: `https://github.com/RazrMD/moodle-portainer`
-5. Set the compose path to `compose.yaml`.
-6. Deploy the stack.
+## Status
 
-## DNS
-Point `moodle.curca.eu` to the server IP and configure a reverse proxy in Nginx Proxy Manager.
+`v0.1` provides the foundation:
 
-## Notes
-- The first run creates the Moodle site automatically.
-- Store `moodledata` and database files in persistent volumes.
+- Docker image build
+- Portainer-compatible `compose.yaml`
+- PHP and Apache baseline configuration
+- MariaDB and Redis services
+- Separate cron container
+- Environment template
+- Deployment documentation
+
+Automatic Moodle installation and first-run provisioning will be added in `v0.2`.
+
+## Quick Start
+
+1. In Portainer, open `Stacks` -> `Add stack`.
+2. Select `Repository`.
+3. Use repository URL:
+
+   ```text
+   https://github.com/RazrMD/moodle-portainer.git
+   ```
+
+4. Set reference to:
+
+   ```text
+   main
+   ```
+
+5. Set compose path to:
+
+   ```text
+   compose.yaml
+   ```
+
+6. Configure environment variables from `.env.example`.
+7. Deploy the stack.
+
+Then configure Nginx Proxy Manager:
+
+- Domain: `moodle.curca.eu`
+- Forward hostname: `moodle`
+- Forward port: `80`
+- Enable SSL with Let's Encrypt
+- Enable Force SSL
+
+## Data Persistence
+
+The stack uses Docker volumes:
+
+- `moodle_app` for Moodle application files and generated `config.php`
+- `moodle_data` for uploaded files and course data
+- `moodle_db` for MariaDB data
+- `redis_data` for Redis data
+
+Do not delete these volumes unless you intend to remove the LMS data.
+
+## Updates
+
+For patch updates on the same Moodle stable branch, use Portainer `Redeploy` with image rebuild enabled. Data remains in Docker volumes.
+
+Major Moodle upgrades require reading `docs/UPDATE.md` first.
