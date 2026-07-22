@@ -2,6 +2,12 @@
 
 Patch updates on the same Moodle branch are handled by rebuilding the image and redeploying the stack in Portainer.
 
+Before any update:
+
+```bash
+moodle-backup
+```
+
 For major Moodle branch upgrades:
 
 1. Back up the database and `moodle_data` volume.

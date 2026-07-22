@@ -21,7 +21,21 @@ Set environment variables from `.env.example` in the Portainer stack UI.
 
 ## First Run
 
-`v0.1` prepares the infrastructure and generates `config.php`. Moodle web installation is still manual:
+For unattended installation, set:
+
+```text
+MOODLE_ADMIN_PASSWORD=<strong admin password>
+```
+
+Then deploy the stack. The entrypoint will:
+
+1. Copy Moodle source into the persistent application volume.
+2. Wait for MariaDB.
+3. Generate `config.php`.
+4. Install Moodle if the database is empty.
+5. Configure the site timezone.
+
+If `MOODLE_ADMIN_PASSWORD` is empty, use manual installation:
 
 1. Open `https://moodle.curca.eu`.
 2. Complete the Moodle installer.
@@ -29,4 +43,9 @@ Set environment variables from `.env.example` in the Portainer stack UI.
 4. Use the database name, user, and password from the stack environment.
 5. Use dataroot `/var/moodledata`.
 
-Automatic installation is planned for `v0.2`.
+After installation, sign in with:
+
+```text
+Username: admin
+Password: value of MOODLE_ADMIN_PASSWORD
+```

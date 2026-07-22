@@ -53,6 +53,7 @@ RUN apt-get update \
     && pecl install redis \
     && docker-php-ext-enable redis \
     && a2enmod headers rewrite expires remoteip \
+    && a2enconf security \
     && rm -rf /var/lib/apt/lists/*
 
 RUN rm -rf /var/www/html/* \
@@ -64,17 +65,23 @@ COPY docker/apache/000-default.conf /etc/apache2/sites-available/000-default.con
 COPY docker/apache/security.conf /etc/apache2/conf-available/security.conf
 COPY docker/php/*.ini /usr/local/etc/php/conf.d/
 COPY docker/scripts/entrypoint.sh /usr/local/bin/moodle-entrypoint
+COPY docker/scripts/install.sh /usr/local/bin/moodle-install
 COPY docker/scripts/cron.sh /usr/local/bin/moodle-cron
 COPY docker/scripts/wait-for-db.sh /usr/local/bin/wait-for-db
+COPY docker/scripts/healthcheck.sh /usr/local/bin/moodle-healthcheck
+COPY docker/scripts/backup.sh /usr/local/bin/moodle-backup
+COPY docker/scripts/restore.sh /usr/local/bin/moodle-restore
 COPY moodle/config.php.template /usr/local/share/moodle/config.php.template
 
-RUN chmod +x /usr/local/bin/moodle-entrypoint /usr/local/bin/moodle-cron /usr/local/bin/wait-for-db \
-    && mkdir -p /var/moodledata \
-    && chown -R www-data:www-data /var/www/html /var/moodledata
+RUN chmod +x /usr/local/bin/moodle-entrypoint /usr/local/bin/moodle-install /usr/local/bin/moodle-cron /usr/local/bin/wait-for-db /usr/local/bin/moodle-healthcheck /usr/local/bin/moodle-backup /usr/local/bin/moodle-restore \
+    && mkdir -p /var/moodledata /backups \
+    && chown -R www-data:www-data /var/www/html /var/moodledata /backups
 
 WORKDIR /var/www/html
 
 EXPOSE 80
+
+HEALTHCHECK --interval=30s --timeout=10s --retries=10 --start-period=90s CMD ["moodle-healthcheck"]
 
 ENTRYPOINT ["moodle-entrypoint"]
 CMD ["apache2-foreground"]

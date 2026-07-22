@@ -16,7 +16,7 @@ Target deployment:
 
 ## Status
 
-`v0.1` provides the foundation:
+The current stack provides:
 
 - Docker image build
 - Portainer-compatible `compose.yaml`
@@ -25,8 +25,8 @@ Target deployment:
 - Separate cron container
 - Environment template
 - Deployment documentation
-
-Automatic Moodle installation and first-run provisioning will be added in `v0.2`.
+- Optional unattended Moodle installation
+- Backup and restore helper scripts
 
 ## Quick Start
 
@@ -77,3 +77,37 @@ Do not delete these volumes unless you intend to remove the LMS data.
 For patch updates on the same Moodle stable branch, use Portainer `Redeploy` with image rebuild enabled. Data remains in Docker volumes.
 
 Major Moodle upgrades require reading `docs/UPDATE.md` first.
+
+## Unattended Install
+
+Set `MOODLE_ADMIN_PASSWORD` in the Portainer stack environment before first deploy.
+
+If `MOODLE_ADMIN_PASSWORD` is empty, the stack starts Moodle and lets you complete the standard web installer.
+
+Default site values:
+
+- Full name: `Aeolus Aviation Academy`
+- Short name: `Aeolus LMS`
+- Admin user: `admin`
+- Admin email: `razrmd@gmail.com`
+- Timezone: `Europe/Chisinau`
+
+## Backups
+
+Run a backup from Portainer by opening the `moodle` container console and executing:
+
+```bash
+moodle-backup
+```
+
+Backups are written to the repository-mounted `backups/` directory used by the stack.
+
+## Documentation
+
+- `docs/INSTALL.md`
+- `docs/PORTAINER.md`
+- `docs/ARCHITECTURE.md`
+- `docs/BACKUP.md`
+- `docs/RESTORE.md`
+- `docs/UPDATE.md`
+- `docs/TROUBLESHOOTING.md`
