@@ -1,4 +1,4 @@
-FROM php:8.3-apache-bookworm
+FROM php:8.5-apache-bookworm
 
 ARG MOODLE_BRANCH=MOODLE_502_STABLE
 
